@@ -13,6 +13,7 @@ import GridLayout from "./GridLayout";
 import Flex from "./Flex";
 import MediaQueriesDemo from "./MediaQueriesDemo";
 import ReactIconsSampler from "./ReactIconsSampler";
+import Link from "next/link";
 
 export default function Lab2() {
   return (
@@ -79,6 +80,10 @@ export default function Lab2() {
             <Flex />
             <MediaQueriesDemo />
             <ReactIconsSampler />
+        </div>
+
+        <div>
+          <Link href="/labs/lab2/tailwind" id="wd-lab2-tailwind-link">Tailwind</Link>
         </div>
 
     </div>
