@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Row } from "react-bootstrap";
 export default function Dashboard() {
   return (

@@ -18,6 +18,6 @@ export default function Profile() {
           <option value="STUDENT">Student</option>
       </FormSelect>
       </Form>
-      <Link id="wd-profile-signout-btn" href="/signin" className="btn btn-danger w-100 mb-2">Sign out</Link>
+      <Link id="wd-profile-signout-btn" href="signin" className="btn btn-danger w-100 mb-2">Sign out</Link>
     </div>
 );}
