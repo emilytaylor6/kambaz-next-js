@@ -3,6 +3,7 @@ import ArrayIndexAndLength from "./ArrayIndexAndLength";
 import ArrowFunctions from "./ArrowFunctions";
 import BooleanVariables from "./BooleanVariables";
 import Classes from "./Classes";
+import ClientComponentDemo from "./ClientComponentDemo";
 import ConditionalOutputIfElse from "./ConditionalOutputIfElse";
 import ConditionalOutputInline from "./ConditionalOutputInline";
 import Destructing from "./Destructing";
@@ -18,6 +19,7 @@ import ImpliedReturn from "./ImpliedReturn";
 import JsonStringify from "./JsonStringify";
 import LegacyFunctions from "./LegacyFunctions";
 import MapFunction from "./MapFunction";
+import ServerComponentDemo from "./ServerComponentDemo";
 import SimpleArrays from "./SimpleArrays";
 import Spreading from "./Spreader";
 import Styles from "./Styles";
@@ -65,6 +67,10 @@ export default function Lab3() {
       {/* 3.5 */}
       <Classes/>
       <Styles/>
+
+      {/* 3.6 */}
+      <ClientComponentDemo/>
+      <ServerComponentDemo/>
 
     </div>
 );}
