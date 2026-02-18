@@ -29,6 +29,7 @@ import Square from "./Square";
 import Styles from "./Styles";
 import TemplateLiterals from "./TemplateLiterals";
 import TernaryOperator from "./TernaryOperator";
+import TodoList from "./todos/TodoList";
 import VariablesAndConstants from "./VariablesAndConstants";
 import VariableTypes from "./VariableTypes";
 
@@ -86,6 +87,9 @@ export default function Lab3() {
         vel nihil repellat nemo explicabo excepturi consectetur. Modi omnis minus sequi maiores, provident voluptates.
       </Highlight>
       <PathParameters/>
+
+      {/* 3.8 */}
+      <TodoList/>
 
     </div>
 );}
