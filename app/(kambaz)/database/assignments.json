@@ -1,0 +1,92 @@
+[
+  {
+    "_id": "A101",
+    "title": "Propulsion Assignment",
+    "description": "propulsion assignment description",
+    "course": "RS101",
+    "availableDate": "2026-05-06T04:00:00.000Z",
+    "dueDate": "2026-05-13T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  },
+  {
+    "_id": "A102",
+    "title": "Combustion Analysis",
+    "description": "combustion analysis description",
+    "course": "RS101",
+    "availableDate": "2026-05-13T04:00:00.000Z",
+    "dueDate": "2026-05-20T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  },
+  {
+    "_id": "A103",
+    "title": "Nozzle Design Project",
+    "description": "nozzle design project description",
+    "course": "RS101",
+    "availableDate": "2026-05-20T04:00:00.000Z",
+    "dueDate": "2026-05-27T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  },
+  {
+    "_id": "A201",
+    "title": "Aerodynamics Quiz",
+    "description": "aerodynamics quiz description",
+    "course": "RS102",
+    "availableDate": "2026-05-06T04:00:00.000Z",
+    "dueDate": "2026-05-13T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  },
+  {
+    "_id": "A202",
+    "title": "Flow Analysis",
+    "description": "flow analysis description",
+    "course": "RS102",
+    "availableDate": "2026-05-13T04:00:00.000Z",
+    "dueDate": "2026-05-20T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  },
+  {
+    "_id": "A203",
+    "title": "Heating Analysis",
+    "description": "heating analysis description",
+    "course": "RS102",
+    "availableDate": "2026-05-20T04:00:00.000Z",
+    "dueDate": "2026-05-20T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  },
+  {
+    "_id": "A301",
+    "title": "Structural Design Task",
+    "description": "structural design task description",
+    "course": "RS103",
+    "availableDate": "2026-05-06T04:00:00.000Z",
+    "dueDate": "2026-05-13T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  },
+  {
+    "_id": "A302",
+    "title": "Orbital Calculations",
+    "description": "orbital calculations description",
+    "course": "RS103",
+    "availableDate": "2026-05-13T04:00:00.000Z",
+    "dueDate": "2026-05-20T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  },
+  {
+    "_id": "A303",
+    "title": "Systems Engineering Exam",
+    "description": "systems engineering exam description",
+    "course": "RS103",
+    "availableDate": "2026-05-20T04:00:00.000Z",
+    "dueDate": "2026-05-20T03:59:00.000Z",
+    "givenPoints": "100",
+    "totalPoints": "100"
+  }
+]

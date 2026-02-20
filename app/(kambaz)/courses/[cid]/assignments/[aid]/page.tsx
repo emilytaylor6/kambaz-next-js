@@ -1,21 +1,53 @@
+"use client"
+import { useParams } from "next/navigation";
 import { Form, FormLabel, FormControl, Row, Col, FormSelect, Container, FormCheck, Button } from "react-bootstrap";
+import * as db from "../../../../database";
+import Link from "next/link";
 
 export default function AssignmentEditor() {
+  const { aid } = useParams();
+  const assignments = db.assignments;
+  const assignment = assignments.find((assignment) => (assignment._id === aid));
+  if (!assignment) return (
+   <div className="p-4">
+     <h2 className="text-danger">Assignment Not Found</h2>
+     <p>
+       This assignment is missing.
+     </p>
+     <Link href={`/courses/`} className="btn btn-primary mt-3">
+       Back to Courses
+     </Link>
+   </div>
+  );
+
+  /**
+   * Formats the ISO string given in the JSON file into a format compatible with datetime-local
+   * and accounts for the user's timezone
+   * @param isoDate the isodate as a string from the JSON file
+   * @returns a formatted string as YYYY-MM-DDTHH:mm
+   */
+  const formatDate = (isoDate: string) => {
+    const date = new Date(isoDate);
+    const timezoneOffset = date.getTimezoneOffset() * 60000; // 60000 ms/min
+    const localDate = new Date(date.getTime() - timezoneOffset);
+    return localDate.toISOString().slice(0, 16);
+  }
+
   return (
     <div id="wd-assignments-editor">
     <Form>
         <Row controlid="assignment-name" className="ps-3 pe-2">
             <FormLabel id="wd-name">Assignment Name</FormLabel>
-            <FormControl id="wd-name" type="assignment" placeholder="Assignment Name" />
+            <FormControl id="wd-name" type="assignment" placeholder="Assignment Name" defaultValue={assignment.title} />
         </Row>
         <br />
         <Row controlid="assignment-description" className="ps-3 pe-2">
-            <FormControl as="textarea" rows={4} placeholder="Assignment Description" />
+            <FormControl as="textarea" rows={4} placeholder="Assignment Description" defaultValue={assignment.description} />
         </Row>
         <br /><br />
         <Row controlid="points">
             <Col className="assignment-editor-label"><FormLabel sm={2}>Points</FormLabel></Col>
-            <Col sm={8}> <FormControl type="points" placeholder="Points" defaultValue="100" /> </Col>
+            <Col sm={8}> <FormControl type="points" placeholder="Points" defaultValue={assignment.totalPoints} /> </Col>
         </Row>
         <br />
         <Row controlid="assignment-group">
@@ -74,13 +106,13 @@ export default function AssignmentEditor() {
                     <br />
                     <Row className="ps-2 pe-2">
                         <FormLabel id="wd-due-date"><b>Due</b></FormLabel>
-                        <FormControl id="wd-due-date" type="datetime-local" />
+                        <FormControl id="wd-due-date" type="datetime-local" defaultValue={formatDate(assignment.dueDate)} />
                     </Row>
                     <br />
                     <Row className="ps-1 pe-1">
                         <Col className="col-md-6">
                             <FormLabel id="wd-avail-date"><b>Available From</b></FormLabel>
-                            <FormControl id="wd-avail-date" type="datetime-local" />
+                            <FormControl id="wd-avail-date" type="datetime-local" defaultValue={formatDate(assignment.availableDate)} />
                         </Col>
                         <Col className="col-md-6">
                             <FormLabel id="wd-until-date"><b>Until</b></FormLabel>
