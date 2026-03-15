@@ -14,6 +14,7 @@ import StringStateVariables from "./StringStateVariables";
 import store from "./store";
 import { Provider } from "react-redux";
 import ReduxExamples from "./redux/page";
+import ReactContextExamples from "./react-context/page";
 
 export default function Lab4() {
 
@@ -49,6 +50,12 @@ export default function Lab4() {
             {/* 4.3 */}
             <Link href="./redux">Redux Examples</Link>
             <ReduxExamples />
+            <hr />
+
+            {/* 4.4 */}
+            <Link href="./react-context">React Context Examples</Link>
+            <ReactContextExamples />
+
         </div>
         </Provider>
     );
