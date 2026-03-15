@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link";
 import ArrayStateVariable from "./ArrayStateVariable";
 import BooleanStateVariables from "./BooleanStateVariables";
 import ClickEvent from "./ClickEvent";
@@ -10,6 +11,9 @@ import PassingDataOnEvent from "./PassingDataOnEvent";
 import PassingFunctions from "./PassingFunctions";
 import UrlEncoding from "./query-parameters";
 import StringStateVariables from "./StringStateVariables";
+import store from "./store";
+import { Provider } from "react-redux";
+import ReduxExamples from "./redux/page";
 
 export default function Lab4() {
 
@@ -19,6 +23,7 @@ export default function Lab4() {
     }
 
     return (
+        <Provider store={store}>
         <div>
             <h2>Lab 4</h2>
 
@@ -40,6 +45,11 @@ export default function Lab4() {
 
             {/* Encoding State in URL */}
             <UrlEncoding />
+
+            {/* 4.3 */}
+            <Link href="./redux">Redux Examples</Link>
+            <ReduxExamples />
         </div>
+        </Provider>
     );
 }
