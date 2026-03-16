@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { RootState } from "../../../store";
 import { useSelector } from "react-redux";
+// import { useState } from "react";
 
 export default function Assignments() {
   const { cid } = useParams(); 
@@ -70,7 +71,7 @@ export default function Assignments() {
                   </Col>
 
                   <Col xs="auto" className="d-flex align-items-center">
-                    <IndividualAssignmentControlButtons />
+                    <IndividualAssignmentControlButtons assignmentId={assignment._id} />
                   </Col>
                 </Row>
               </ListGroupItem>
