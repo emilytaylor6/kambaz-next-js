@@ -3,6 +3,7 @@ import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 
 export default function AssignmentControls() {
+
     return (
         <div id="wd-assignment-controls" className="text-nowrap">
             <Row>

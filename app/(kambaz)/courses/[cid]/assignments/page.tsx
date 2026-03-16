@@ -8,11 +8,12 @@ import IndividualAssignmentControlButtons from "./IndividualAssignmentControlBut
 import { LuNotebookPen } from "react-icons/lu";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import * as db from "../../../database";
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
 
 export default function Assignments() {
   const { cid } = useParams(); 
-  const assignments = db.assignments;
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
 
   /**
    * Used to produce a date and time in the format: MONTH DAY, YEAR at TIME with TIME being in the 

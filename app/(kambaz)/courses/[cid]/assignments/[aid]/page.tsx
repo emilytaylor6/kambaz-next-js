@@ -1,10 +1,10 @@
 "use client"
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { Form, FormLabel, FormControl, Row, Col, FormSelect, Container, FormCheck, Button } from "react-bootstrap";
 import * as db from "../../../../database";
 import Link from "next/link";
 
-export default function AssignmentEditor() {
+export default function AssignmentEditor( { addAssignment } : { addAssignment : }) {
   const { aid } = useParams();
   const assignments = db.assignments;
   const assignment = assignments.find((assignment) => (assignment._id === aid));
@@ -124,7 +124,11 @@ export default function AssignmentEditor() {
             </Col>
         </Row>
         <hr />
-        <Button variant="danger" size="lg" className="me-2 float-end" id="wd-save-assignment-btn" type="submit">Save</Button>
+        <Button variant="danger" size="lg" className="me-2 float-end" id="wd-save-assignment-btn" type="submit" 
+            onClick={() => {
+              addAssignment();
+              redirect(`../page`);
+             }}>Save</Button>
         <Button variant="secondary" size="lg" className="me-2 float-end" id="wd-cancel-assignment-btn">Cancel</Button>
     </Form>
     </div>
