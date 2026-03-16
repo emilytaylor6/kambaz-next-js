@@ -7,10 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import * as db from "../database";
 import { addNewCourse, updateCourse, deleteCourse } from '../courses/reducer';
+import { redirect } from "next/navigation";
 
 export default function Dashboard() {
     const { courses } = useSelector((state: RootState) => state.coursesReducer);
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+    if (!currentUser) {
+        redirect("/account/signin");
+    }
     const { enrollments } = db;
     const dispatch = useDispatch();
 
