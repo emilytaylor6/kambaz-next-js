@@ -1,3 +1,4 @@
+"use client"
 import { ListGroup } from "react-bootstrap";
 import { TodoZustandType, useTodoStore } from "./useTodoStore";
 import TodoFormZustand from "./TodoFormZustand";

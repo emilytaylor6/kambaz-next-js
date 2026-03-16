@@ -1,3 +1,4 @@
+"use client"
 import ZustandCounter from "./counter";
 import ZustandTodoList from "./todos/ZustandTodoList";
 import store from "../store";
