@@ -4,7 +4,7 @@ import { Form, FormLabel, FormControl, Row, Col, FormSelect, Container, FormChec
 import * as db from "../../../../database";
 import Link from "next/link";
 
-export default function AssignmentEditor( { addAssignment } : { addAssignment : }) {
+export default function AssignmentEditor() {
   const { aid } = useParams();
   const assignments = db.assignments;
   const assignment = assignments.find((assignment) => (assignment._id === aid));
@@ -126,7 +126,7 @@ export default function AssignmentEditor( { addAssignment } : { addAssignment : 
         <hr />
         <Button variant="danger" size="lg" className="me-2 float-end" id="wd-save-assignment-btn" type="submit" 
             onClick={() => {
-              addAssignment();
+            //   addAssignment();
               redirect(`../page`);
              }}>Save</Button>
         <Button variant="secondary" size="lg" className="me-2 float-end" id="wd-cancel-assignment-btn">Cancel</Button>
