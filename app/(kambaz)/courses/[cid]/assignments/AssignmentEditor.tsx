@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { useState } from "react";
-import { addAssignment, updateAssignment } from "./reducer";
+import { setAssignments } from "./reducer";
+import * as client from "../../client";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -27,6 +28,18 @@ export default function AssignmentEditor() {
         totalPoints: "100",
     });
 
+  const onCreateAssignmentForCourse = async () => {
+    if (!cid) return;
+    const newAssignment = await client.createAssignmentsForCourse(cid as string, assignment);
+    dispatch(setAssignments([...assignments, newAssignment]));
+  };
+
+  const onUpdateAssignment = async () => {
+    await client.updateAssignment(assignment);
+    const newAssignments = assignments.map((a: any) => a._id === assignment._id ? assignment : a );
+    dispatch(setAssignments(newAssignments));
+  };
+
   if (aid && !existingAssignment) return (
    <div className="p-4">
      <h2 className="text-danger">Assignment Not Found</h2>
@@ -44,9 +57,11 @@ export default function AssignmentEditor() {
    */
   const handleSave = () => {
     if (aid) {
-        dispatch(updateAssignment(assignment));
+        // dispatch(updateAssignment(assignment));
+        onUpdateAssignment();
     } else {
-        dispatch(addAssignment(assignment));
+        // dispatch(addAssignment(assignment));
+        onCreateAssignmentForCourse();
     }
     router.push(`/courses/${cid}/assignments/`);
   }

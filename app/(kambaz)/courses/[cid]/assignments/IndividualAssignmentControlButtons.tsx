@@ -5,7 +5,8 @@ import { useState } from "react";
 import { FaTrash } from "react-icons/fa6";
 import AssignmentDeleteDialogue from "./AssignmentDeleteDialogue";
 
-export default function IndividualAssignmentControlButtons({ assignmentId} : { assignmentId: string }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function IndividualAssignmentControlButtons({ assignmentId, assignments } : { assignmentId: string, assignments: any[] }) {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -16,7 +17,7 @@ export default function IndividualAssignmentControlButtons({ assignmentId} : { a
             <IoEllipsisVertical className="fs-4" />
             <FaTrash className="text-danger me-2 mb-1" onClick={handleShow} />
 
-            <AssignmentDeleteDialogue show={show} assignmentId={assignmentId} handleClose={handleClose} />
+            <AssignmentDeleteDialogue show={show} assignmentId={assignmentId} handleClose={handleClose} assignments={assignments} />
         </div>
     );
 } 

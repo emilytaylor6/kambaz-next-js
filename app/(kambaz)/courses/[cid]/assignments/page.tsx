@@ -9,12 +9,26 @@ import { LuNotebookPen } from "react-icons/lu";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { RootState } from "../../../store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { useState } from "react";
+import * as client from "../../client";
+import { useEffect } from "react";
+import { setAssignments } from "./reducer";
 
 export default function Assignments() {
   const { cid } = useParams(); 
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const dispatch = useDispatch();
+
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Used to produce a date and time in the format: MONTH DAY, YEAR at TIME with TIME being in the 
@@ -71,7 +85,7 @@ export default function Assignments() {
                   </Col>
 
                   <Col xs="auto" className="d-flex align-items-center">
-                    <IndividualAssignmentControlButtons assignmentId={assignment._id} />
+                    <IndividualAssignmentControlButtons assignmentId={assignment._id} assignments={assignments}/>
                   </Col>
                 </Row>
               </ListGroupItem>
