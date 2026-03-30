@@ -24,7 +24,7 @@ export default function Dashboard() {
     
     const fetchCourses = async () => {
         try {
-            const courses = await client.findMyCourses();
+            const courses = showCourses ? await client.fetchAllCourses() : await client.findMyCourses();
             dispatch(setCourses(courses));
         } catch (error) {
             console.error(error);
@@ -72,7 +72,7 @@ export default function Dashboard() {
         fetchCourses();
         fetchEnrollments();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser]);
+    }, [currentUser, showCourses]);
 
     if (!currentUser) {
         redirect("/account/signin");
