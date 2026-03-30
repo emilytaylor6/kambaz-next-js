@@ -72,7 +72,7 @@ export default function Dashboard() {
         fetchCourses();
         fetchEnrollments();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser, showCourses]);
+    }, [currentUser, showCourses, courses.length]);
 
     if (!currentUser) {
         redirect("/account/signin");
