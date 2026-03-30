@@ -29,7 +29,13 @@ export default function TOC() {
        <NavLink href="/" as={Link}>Kambaz</NavLink>
      </NavItem>
      <NavItem>
-       <NavLink href="https://github.com/emilytaylor6/kambaz-next-js/">My GitHub</NavLink>
+       <NavLink href="https://github.com/emilytaylor6/kambaz-next-js/">React GitHub</NavLink>
+     </NavItem>
+     <NavItem>
+       <NavLink href="https://github.com/emilytaylor6/kambaz-node-server-app">Node GitHub</NavLink>
+     </NavItem>
+     <NavItem>
+       <NavLink href="https://kambaz-node-server-app-sqz9.onrender.com">Render Link</NavLink>
      </NavItem>
    </Nav>
 );}

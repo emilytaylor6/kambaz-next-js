@@ -5,7 +5,7 @@ const axiosWithCredentials = axios.create({ withCredentials: true });
 const USERS_API = `${HTTP_SERVER}/api/users`;
 
 export const fetchAllCourses = async () => {
-  const { data } = await axios.get(COURSES_API);
+  const { data } = await axiosWithCredentials.get(COURSES_API);
   return data;
 };
 
@@ -21,25 +21,25 @@ export const createCourse = async (course: any) => {
 };
 
 export const deleteCourse = async (id: string) => {
-  const { data } = await axios.delete(`${COURSES_API}/${id}`);
+  const { data } = await axiosWithCredentials.delete(`${COURSES_API}/${id}`);
   return data;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateCourse = async (course: any) => {
-  const { data } = await axios.put(`${COURSES_API}/${course._id}`, course);
+  const { data } = await axiosWithCredentials.put(`${COURSES_API}/${course._id}`, course);
   return data;
 };
 
 export const findModulesForCourse = async (courseId: string) => {
-  const response = await axios
+  const response = await axiosWithCredentials
     .get(`${COURSES_API}/${courseId}/modules`);
   return response.data;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createModuleForCourse = async (courseId: string, module: any) => {
-  const response = await axios.post(
+  const response = await axiosWithCredentials.post(
     `${COURSES_API}/${courseId}/modules`,
     module
   );
@@ -48,26 +48,26 @@ export const createModuleForCourse = async (courseId: string, module: any) => {
 
 const MODULES_API = `${HTTP_SERVER}/api/modules`;
 export const deleteModule = async (moduleId: string) => {
- const response = await axios.delete(`${MODULES_API}/${moduleId}`);
+ const response = await axiosWithCredentials.delete(`${MODULES_API}/${moduleId}`);
  return response.data;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateModule = async (module: any) => {
-  const { data } = await axios.put(`${MODULES_API}/${module._id}`, module);
+  const { data } = await axiosWithCredentials.put(`${MODULES_API}/${module._id}`, module);
   return data;
 };
 
 // assignments
 export const findAssignmentsForCourse = async (courseId: string) => {
-  const response = await axios
+  const response = await axiosWithCredentials
     .get(`${COURSES_API}/${courseId}/assignments`);
   return response.data;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createAssignmentsForCourse = async (courseId: string, assignment: any) => {
-  const response = await axios.post(
+  const response = await axiosWithCredentials.post(
     `${COURSES_API}/${courseId}/assignments`,
     assignment
   );
@@ -76,13 +76,28 @@ export const createAssignmentsForCourse = async (courseId: string, assignment: a
 
 const ASSIGNMENTS_API = `${HTTP_SERVER}/api/assignments`;
 export const deleteAssignment = async (assignmentId: string) => {
- const response = await axios.delete(`${ASSIGNMENTS_API}/${assignmentId}`);
+ const response = await axiosWithCredentials.delete(`${ASSIGNMENTS_API}/${assignmentId}`);
  return response.data;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateAssignment = async (assignment: any) => {
-  const { data } = await axios.put(`${ASSIGNMENTS_API}/${assignment._id}`, assignment);
+  const { data } = await axiosWithCredentials.put(`${ASSIGNMENTS_API}/${assignment._id}`, assignment);
   return data;
 };
 
+// enrollments
+export const findEnrollmentsForUser = async (userId: string) => {
+  const { data } = await axiosWithCredentials.get(`${USERS_API}/${userId}/enrollments`);
+  return data;
+};
+
+export const enrollUserInCourse = async (userId: string, courseId: string) => {
+  const { data } = await axiosWithCredentials.post(`${USERS_API}/${userId}/courses/${courseId}`);
+  return data;
+};
+
+export const unenrollUserFromCourse = async (userId: string, courseId: string) => {
+  const { data } = await axiosWithCredentials.delete(`${USERS_API}/${userId}/courses/${courseId}`);
+  return data;
+};

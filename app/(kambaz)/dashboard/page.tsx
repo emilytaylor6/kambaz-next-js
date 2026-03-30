@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { setCourses } from '../courses/reducer';
 import { redirect } from "next/navigation";
-import { enroll, unenroll } from "./reducer";
+import { enroll, setEnrollments, unenroll } from "./reducer";
 import * as client from "../courses/client";
 
 export default function Dashboard() {
@@ -23,12 +23,21 @@ export default function Dashboard() {
     });
     
     const fetchCourses = async () => {
-    try {
-        const courses = await client.findMyCourses();
-        dispatch(setCourses(courses));
-    } catch (error) {
-        console.error(error);
-    }
+        try {
+            const courses = await client.findMyCourses();
+            dispatch(setCourses(courses));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const fetchEnrollments = async () => {
+        try {
+            const enrollments = await client.findEnrollmentsForUser(currentUser._id);
+            dispatch(setEnrollments(enrollments));
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const onAddNewCourse = async () => {
@@ -49,8 +58,19 @@ export default function Dashboard() {
         })));
     };
 
+    const onEnroll = async (courseId: string) => {
+        await client.enrollUserInCourse(currentUser._id, courseId);
+        dispatch(enroll({ courseId, userId: currentUser._id }));
+    };
+
+    const onUnenroll = async (courseId: string) => {
+        await client.unenrollUserFromCourse(currentUser._id, courseId);
+        dispatch(unenroll({ courseId, userId: currentUser._id }));
+    };
+
     useEffect(() => {
         fetchCourses();
+        fetchEnrollments();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUser]);
 
@@ -115,13 +135,13 @@ export default function Dashboard() {
                                 {isEnrolled(course._id) ? 
                                     <Button onClick={(event) => {
                                         event.preventDefault();
-                                        dispatch(unenroll({ courseId: course._id, userId: currentUser._id }))
+                                        onUnenroll(course._id);
                                     }} className="btn btn-danger me-3">
                                         Unenroll
                                     </Button> : 
                                     <Button onClick={(event) => {
                                         event.preventDefault();
-                                        dispatch(enroll({ courseId: course._id, userId: currentUser._id }))
+                                        onEnroll(course._id);
                                     }} className="btn btn-success me-3">
                                         Enroll
                                     </Button>
