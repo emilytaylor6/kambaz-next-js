@@ -16,10 +16,7 @@ export default function AccountNavigation() {
          <NavLink as={Link} href={link} active={pathname.endsWith(link)}>
            {link} </NavLink> </NavItem>
      ))}
+      {currentUser && currentUser.role === "ADMIN" && (
+       <NavLink as={Link} href={`/account/users`}  active={pathname.endsWith('Users')}> users </NavLink> )}
    </Nav>
-    //  <div id="wd-account-navigation" className="wd list-group fs-5 rounded-0">
-    //    <Link href="signin" id="wd-signin-link" className="list-group-item active border-0"> Signin </Link>
-    //    <Link href="signup" id="wd-signup-link" className="list-group-item text-danger border-0"> Signup </Link> 
-    //    <Link href="profile" id="wd-profile-link" className="list-group-item text-danger border-0"> Profile </Link> 
-    //  </div>
 );}
