@@ -65,7 +65,7 @@ export default function Assignments() {
           </div>
 
           <ListGroup className="rounded-0" id="wd-assignments">
-            {assignments.filter((assignment) => assignment.course === cid).map((assignment) => (
+            {assignments.map((assignment) => (
               <ListGroupItem key={assignment._id} className="wd-assignment p-2 ps-1">
                 <Row>
                   <Col xs="auto" className="d-flex align-items-center">
