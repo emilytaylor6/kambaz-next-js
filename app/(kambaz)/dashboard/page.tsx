@@ -81,7 +81,7 @@ export default function Dashboard() {
     const isFaculty = currentUser.role === "FACULTY";
 
     const isEnrolled = (courseId: string): boolean => {
-        return enrollments.some((enrollment) => enrollment.user === currentUser._id && enrollment.course === courseId);
+        return enrollments.some((courseEnrollment) => courseEnrollment._id === courseId);
     }
 
     const currentCourses = showCourses ? courses : courses.filter((course) => isEnrolled(course._id));
