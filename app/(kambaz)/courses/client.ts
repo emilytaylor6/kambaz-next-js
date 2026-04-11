@@ -96,11 +96,13 @@ export const findEnrollmentsForUser = async (userId: string) => {
 };
 
 export const enrollUserInCourse = async (userId: string, courseId: string) => {
-  const { data } = await axiosWithCredentials.post(`${USERS_API}/${userId}/courses/${courseId}`);
+  const { data } = await axiosWithCredentials.post(
+    `${USERS_API}/${userId}/courses/${courseId}`);
   return data;
 };
 
 export const unenrollUserFromCourse = async (userId: string, courseId: string) => {
-  const { data } = await axiosWithCredentials.delete(`${USERS_API}/${userId}/courses/${courseId}`);
+  const { data } = await axiosWithCredentials.delete(
+    `${USERS_API}/${userId}/courses/${courseId}`);
   return data;
 };
