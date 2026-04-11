@@ -5,7 +5,7 @@ import { FaPencil } from "react-icons/fa6";
 import { FaCheck, FaUserCircle } from "react-icons/fa";
 import { FormControl } from "react-bootstrap";
 
-export default function PeopleDetails({ uid, onClose }: { uid: string | null; onClose: () => void; }) {
+export default function PeopleDetails({ uid, isAdmin, onClose }: { uid: string | null; isAdmin: boolean; onClose: () => void; }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [user, setUser] = useState<any>({});
   const [name, setName] = useState("");
@@ -50,17 +50,17 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
       <hr />
 
       <div className="text-danger fs-4 wd-name">
-        {!editing && (
+        {!editing && isAdmin && (
           <FaPencil onClick={() => setEditing(true)}
               className="float-end fs-5 mt-2 wd-edit" /> )}
-        {editing && (
+        {editing && isAdmin && (
           <FaCheck onClick={() => saveUser()}
               className="float-end fs-5 mt-2 me-2 wd-save" /> )}
         {!editing && (
           <div className="wd-name"
-               onClick={() => setEditing(true)}>
+               onClick={() => isAdmin && setEditing(true)}>
             {user.firstName} {user.lastName}</div>)}
-        {user && editing && (
+        {user && editing && isAdmin && (
           <FormControl className="w-50 wd-edit-name"
             defaultValue={`${user.firstName} ${user.lastName}`}
             onChange={(e) => setName(e.target.value)}
@@ -71,9 +71,9 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
       <b>Roles:</b>
         {!editing && (
           <div className="wd-roles"
-               onClick={() => setEditing(true)}>
+               onClick={() => isAdmin && setEditing(true)}>
             {user.role} </div>)}
-        {user && editing && (         
+        {user && editing && isAdmin && (         
             <span className="wd-roles">         
             <select value={role} onChange={(e) => setRole(e.target.value)}
                     className="form-select w-75 wd-select-role" >
@@ -88,9 +88,9 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
       <div className="wd-email">
         {!editing && (
           <div className="wd-name"
-               onClick={() => setEditing(true)}>
+               onClick={() => isAdmin && setEditing(true)}>
             {user.email}</div>)}
-        {user && editing && (
+        {user && editing && isAdmin && (
           <FormControl className="w-75 wd-edit-name"
             defaultValue={`${user.email}`}
             onChange={(e) => setEmail(e.target.value)}
@@ -103,7 +103,7 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
       <b>Total Activity:</b>  <span className="wd-total-activity">{user.totalActivity}</span> 
       <hr />
 
-      <button onClick={() => deleteUser(uid)} className="btn btn-danger float-end wd-delete" > Delete </button>
+      {isAdmin && <button onClick={() => deleteUser(uid)} className="btn btn-danger float-end wd-delete" > Delete </button>}
       <button onClick={onClose}
               className="btn btn-secondary float-end me-2 wd-cancel" > Cancel </button>
     </div>

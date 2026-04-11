@@ -3,20 +3,26 @@ import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import PeopleDetails from "./Details";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/(kambaz)/store";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function PeopleTable({ users = [], fetchUsers }: { users?: any[]; fetchUsers: () => void;}) {
   const [showDetails, setShowDetails] = useState(false);
   const [showUserId, setShowUserId] = useState<string | null>(null);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+
+  const isAdmin = currentUser && currentUser.role === "ADMIN";
   
  return (
   <div id="wd-people-table">
      {showDetails && (
        <PeopleDetails
          uid={showUserId}
+         isAdmin={isAdmin}
          onClose={() => {
-           setShowDetails(false);
-           fetchUsers();
+            fetchUsers();
+            setShowDetails(false);
          }}/>
      )}
    <Table striped>
