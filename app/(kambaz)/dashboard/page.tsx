@@ -121,7 +121,7 @@ export default function Dashboard() {
                 <Col key={course._id} className="wd-dashboard-course" style={{ width: "300px" }}>
                     <Card>
                         <Link href={`/courses/${course._id}/`} className="wd-dashboard-course-link text-decoration-none text-dark">
-                            <CardImg src={course.image} alt={course.name} variant="top" width="100%" height={160} />
+                            <CardImg src={course.image} variant="top" width="100%" height={160} />
                             <CardBody>
                                 <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
                                     {course.name}
