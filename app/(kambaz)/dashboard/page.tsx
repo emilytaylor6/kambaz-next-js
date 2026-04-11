@@ -65,7 +65,7 @@ export default function Dashboard() {
 
     const onUnenroll = async (courseId: string) => {
         await client.unenrollUserFromCourse(currentUser._id, courseId);
-        dispatch(unenroll({ courseId, userId: currentUser._id }));
+        dispatch(unenroll({ courseId }));
     };
 
     useEffect(() => {
