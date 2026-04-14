@@ -11,22 +11,33 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import Link from "next/link";
 import { produceDateAndTime, produceQuizAvailability } from "./utils";
+import QuizzesHeaderControls from "./QuizzesHeaderControls";
+import IndivQuizControlButtons from "./IndivQuizControlButtons";
 
 export default function Quizzes() {
     const { cid } = useParams();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const [quizzes, setQuizzes] = useState<any[]>([]);
     const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [search, setSearch] = useState<string>("");
+    const canEdit = currentUser.role === "FACULTY";
 
     const fetchQuizzes = async () => {
         const quizzes = await client.findQuizzesForCourse(cid as string);
-        setQuizzes(quizzes);
+        const filteredQuizzes = [ ...quizzes ].filter((quiz) => quiz.title.toLowerCase().includes(search.toLowerCase()));
+
+        if (!canEdit) {
+            const publishedQuizzes = [ ...filteredQuizzes ].filter((quiz) => quiz.isPublished);
+            setQuizzes(publishedQuizzes);
+        } else {
+            setQuizzes(filteredQuizzes);
+        }
     }
 
     useEffect(() => {
         fetchQuizzes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [search]);
 
     const produceAvailabilityComponent = (quiz: any) => {
         const availability = produceQuizAvailability(quiz);
@@ -52,7 +63,8 @@ export default function Quizzes() {
 
     return (
         <div>
-            {/* add control buttons here */}
+            <QuizzesHeaderControls canEdit={canEdit} setSearch={setSearch} />
+            <hr/>
             
             <ListGroup className="rounded-0" id="wd-quizzes">
                 <ListGroupItem className="wd-quizzes-group p-0 mb-5 fs-5 border-gray">
@@ -91,11 +103,12 @@ export default function Quizzes() {
                                     </Col>
 
                                     <Col xs="auto" className="d-flex align-items-center">
-                                        {/* add individual control buttons */}
+                                        {canEdit && <IndivQuizControlButtons quiz={quiz} fetchQuizzes={fetchQuizzes} />}
                                     </Col>
                                 </Row>
                             </ListGroupItem>
                         ))}
+                        {!collapsed && search !== "" && quizzes.length === 0 && <span className="align-items-center">  No quizzes found.</span> }
                     </ListGroup>
 
                 </ListGroupItem>
