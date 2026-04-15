@@ -146,6 +146,13 @@ export const updateQuiz = async (quiz: any) => {
   return data;
 }
 
+export const findQuizById = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.get(
+    `${QUIZZES_API}/${quizId}`
+  );
+  return data;
+}
+
 // ----------------- questions -----------------
 
 export const findQuestionsForQuiz = async (quizId: string) => {
