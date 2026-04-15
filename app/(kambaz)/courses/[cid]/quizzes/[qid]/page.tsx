@@ -67,7 +67,7 @@ export default function QuizDetails() {
             </Row>
             <Row className="mb-2">
                 <Col xs="auto" className="text-end fw-bold" style={{ minWidth: "300px" }}>Time Limit</Col>
-                <Col>{quiz.timeLimit} Minutes</Col>
+                <Col>{quiz.timeLimit} Minute{quiz.timeLimit === 1 ? "" : "s"}</Col>
             </Row>
             <Row className="mb-2">
                 <Col xs="auto" className="text-end fw-bold" style={{ minWidth: "300px" }}>Multiple Attempts</Col>

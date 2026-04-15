@@ -27,7 +27,7 @@ export default function QuizzesHeaderControls({ canEdit, setSearch } : { canEdit
 
                 {canEdit && (
                     <Col xs={12} md="auto" className="mt-2 mt-md-0">
-                        <Link href={`/courses/${cid}/quizzes/`}>
+                        <Link href={`/courses/${cid}/quizzes/create`}>
                             <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-quiz-btn">
                                 <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                                 Quiz

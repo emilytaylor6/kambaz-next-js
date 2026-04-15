@@ -47,3 +47,18 @@ export const produceQuizAvailability = (quiz: any) => {
 
     return "available";
 }
+
+  /**
+   * Formats the ISO string given in the JSON file into a format compatible with datetime-local
+   * and accounts for the user's timezone
+   * @param isoDate the isodate as a string from the JSON file
+   * @returns a formatted string as YYYY-MM-DDTHH:mm
+   */
+export const formatDate = (isoDate: string) => {
+    if (!isoDate) return "";
+    const date = new Date(isoDate);
+    if (isNaN(date.getTime())) return "";
+    const timezoneOffset = date.getTimezoneOffset() * 60000; // 60000 ms/min
+    const localDate = new Date(date.getTime() - timezoneOffset);
+    return localDate.toISOString().slice(0, 16);
+}
