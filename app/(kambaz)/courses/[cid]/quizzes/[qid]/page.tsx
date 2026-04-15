@@ -107,13 +107,14 @@ export default function QuizDetails() {
         <hr/>
 
         {isStudent && (
-            <Button 
-                variant="danger" 
-                className="d-flex justify-content-center mt-3"
-                onClick={() => router.push(`/courses/${cid}/quizzes/${qid}`)}
-            >
-                Take Quiz
-            </Button>
+            <div className="d-flex justify-content-center mt-3">
+                <Button 
+                    variant="danger"
+                    onClick={() => router.push(`/courses/${cid}/quizzes/${qid}`)}
+                >
+                    Take Quiz
+                </Button>
+            </div>
         )}
             
         </div>
