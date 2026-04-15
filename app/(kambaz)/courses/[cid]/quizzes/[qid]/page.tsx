@@ -40,7 +40,7 @@ export default function QuizDetails() {
                     </Button>
                     <Button
                         variant="secondary"
-                        onClick={() => router.push(`/courses/${cid}/quizzes/${qid}`)}>
+                        onClick={() => router.push(`/courses/${cid}/quizzes/${qid}/editor`)}>
                         Editor
                     </Button>
                 </div><hr /></>
@@ -103,6 +103,10 @@ export default function QuizDetails() {
             <Col xs={4}>{quiz.availableDate ? produceDateAndTime(new Date(quiz.availableDate)) : "N/A"}</Col>
             <Col xs={4}>{quiz.untilDate ? produceDateAndTime(new Date(quiz.untilDate)) : "N/A"}</Col>
         </Row>
+
+        <hr/>
+
+        <span>{quiz.description}</span>
 
         <hr/>
 
