@@ -18,12 +18,12 @@ export default function QuestionsEditor({ questions, setQuestions } : { question
             fillInAnswers: undefined 
         }]);
     };
-    
+
     return (
     <div>
         {questions.map((question: any, index: number) => (
             <QuestionBox key={question._id} givenQuestion={question} index={index} 
-                questions={questions} setQuestions={setQuestions} />
+                questions={questions} setQuestions={setQuestions} isNew={!question._id} />
         ))}
         <div className="d-flex justify-content-center mt-3">
             <Button 

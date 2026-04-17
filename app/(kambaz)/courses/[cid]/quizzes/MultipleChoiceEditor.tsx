@@ -26,12 +26,12 @@ export default function MultipleChoiceEditor({ question, setQuestion, questionIn
     };
 
     const removeChoice = (index: number) => {
-        if (choices.length() <= 1) return;
+        if (choices.length <= 1) return;
         setChoices(choices.filter((_: any, i: number) => i !== index));
     };
 
     return (
-    <div className="wd-multiple-choice-question">
+    <div className="wd-multiple-choice-question-editor">
         <Row>
             <span>Enter your question and multiple answers then select the one correct answer.</span>
         </Row> <br/>
@@ -42,7 +42,7 @@ export default function MultipleChoiceEditor({ question, setQuestion, questionIn
             onChange={(e) => { setQuestion({ ...question, question: e.target.value }) }} />
         </Row> <br/>
 
-        <b>Answers:</b>
+        <b>Answers:</b> 
             {choices.map((choice: any, index: number) => (
                 <div key={index} className="d-flex align-items-center gap-2 mb-3">
                     <FormCheck

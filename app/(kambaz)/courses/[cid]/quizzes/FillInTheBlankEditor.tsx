@@ -22,12 +22,12 @@ export default function FillInTheBlankEditor({ question, setQuestion } :
     };
 
     const removeAnswer = (index: number) => {
-        if (fillInAnswers.length() <= 1) return;
+        if (fillInAnswers.length <= 1) return;
         setAnswers(fillInAnswers.filter((_: any, i: number) => i !== index));
     };
 
     return (
-    <div className="wd-fill-in-the-blank-question">
+    <div className="wd-fill-in-the-blank-question-editor">
         <Row>
             <span>Enter your question text, then define all possible correct answers for the blank. Students will 
                 see the questionfollowed by a small text box to type their answer.

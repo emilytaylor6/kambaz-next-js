@@ -7,7 +7,7 @@ export default function TrueFalseEditor({ question, setQuestion, questionIndex }
     { question: any, setQuestion: (question: any) => void, questionIndex: number }) {
 
     return (
-    <div className="wd-true-false-question">
+    <div className="wd-true-false-question-editor">
         <Row>
             <span>Enter your question text, then select if True or False is the correct answer.</span>
         </Row> <br/>
