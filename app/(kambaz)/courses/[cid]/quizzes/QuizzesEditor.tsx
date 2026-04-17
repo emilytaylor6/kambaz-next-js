@@ -3,19 +3,50 @@ import { useParams, useRouter } from "next/navigation";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as client from "../../client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button, Col, Form, Nav, NavItem, NavLink, Row } from "react-bootstrap";
 import DetailsEditor from "./DetailsEditor";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdDoNotDisturbAlt } from "react-icons/md";
 import { IoEllipsisVertical } from "react-icons/io5";
+import QuestionsEditor from "./QuestionsEditor";
 
 export default function QuizzesEditor({ givenQuiz, isNew } : { givenQuiz: any, isNew: boolean })  {
     const { cid } = useParams(); 
     const router = useRouter();
     const [quiz, setQuiz] = useState<any>(givenQuiz);
+    const [questions, setQuestions] = useState<any>([]);
+    const [originalQuestions, setOriginalQuestions] = useState<any>([]);
     const [activeEditor, setActiveEditor] = useState<"details" | "questions">("details");
+
+    useEffect(() => {
+        onStartQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    
+    const onStartQuestions = async () => {
+        if(!quiz._id) return;
+        const foundQuestions = await client.findQuestionsForQuiz(quiz._id);
+        setQuestions(foundQuestions);
+        setOriginalQuestions(foundQuestions);
+    }
+
+    const saveQuestions = async (quizId: string) => {
+        const deleted = originalQuestions.filter((original: { _id: any; }) => 
+            !questions.find((question: { _id: any; }) => question._id === original._id));
+
+        const added = questions.filter((question: { _id: any; }) => !question._id);
+
+        const updated = questions.filter((question: { _id: any }) => question._id 
+            && originalQuestions.find((original: { _id: any; }) => original._id === question._id));
+
+        await Promise.all([
+            ...deleted.map((question: { _id: string; }) => client.deleteQuestion(question._id)),
+            ...added.map((question: { _id: string; }) => client.createQuestionForQuiz(quizId, question)),
+            ...updated.map((question: { _id: string; }) => client.updateQuestion(question)),
+        ])
+    }
 
     const onCreateQuiz = async () => {
         if (!cid) return;
@@ -48,9 +79,11 @@ export default function QuizzesEditor({ givenQuiz, isNew } : { givenQuiz: any, i
     const handleSave = async () => {
         if (isNew) {
             const newQuiz = await onCreateQuiz();
+            await saveQuestions(newQuiz._id);
             router.push(`/courses/${cid}/quizzes/${newQuiz._id}`);
         } else {
             onUpdateQuiz();
+            await saveQuestions(quiz._id);
             router.push(`/courses/${cid}/quizzes/${quiz._id}`);
         }
     }
@@ -65,8 +98,10 @@ export default function QuizzesEditor({ givenQuiz, isNew } : { givenQuiz: any, i
             if (!cid) return;
             const createdQuiz = await client.createQuizForCourse(cid as string, publishedQuiz);
             setQuiz(createdQuiz);
+            await saveQuestions(createdQuiz._id);
         } else {
             await client.updateQuiz(publishedQuiz);
+            await saveQuestions(quiz._id);
         }
         router.push(`/courses/${cid}/quizzes`);
     }
@@ -105,7 +140,9 @@ return (
         </Nav>
         
         <Form>
-            <DetailsEditor quiz={quiz} setQuiz={setQuiz} />
+            {activeEditor === "details" ? 
+                <DetailsEditor quiz={quiz} setQuiz={setQuiz} /> :
+                <QuestionsEditor questions={questions} setQuestions={setQuestions} />}
             <hr />
             <Button variant="danger" size="lg" className="me-2 float-end" id="wd-save-quiz-btn" 
                 onClick={() => {
