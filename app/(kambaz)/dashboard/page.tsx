@@ -65,14 +65,14 @@ export default function Dashboard() {
 
     const onUnenroll = async (courseId: string) => {
         await client.unenrollUserFromCourse(currentUser._id, courseId);
-        dispatch(unenroll({ courseId, userId: currentUser._id }));
+        dispatch(unenroll({ courseId }));
     };
 
     useEffect(() => {
         fetchCourses();
         fetchEnrollments();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser, showCourses, courses.length]);
+    }, [currentUser, showCourses, courses.length, enrollments.length]);
 
     if (!currentUser) {
         redirect("/account/signin");
@@ -81,7 +81,7 @@ export default function Dashboard() {
     const isFaculty = currentUser.role === "FACULTY";
 
     const isEnrolled = (courseId: string): boolean => {
-        return enrollments.some((enrollment) => enrollment.user === currentUser._id && enrollment.course === courseId);
+        return enrollments.some((courseEnrollment) => courseEnrollment._id === courseId);
     }
 
     const currentCourses = showCourses ? courses : courses.filter((course) => isEnrolled(course._id));

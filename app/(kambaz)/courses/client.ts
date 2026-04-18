@@ -31,6 +31,12 @@ export const updateCourse = async (course: any) => {
   return data;
 };
 
+export const findUsersForCourse = async (courseId: string) => {
+  const response = await axios.get(`${COURSES_API}/${courseId}/users`);
+  return response.data;
+};
+
+
 export const findModulesForCourse = async (courseId: string) => {
   const response = await axiosWithCredentials
     .get(`${COURSES_API}/${courseId}/modules`);
@@ -46,15 +52,18 @@ export const createModuleForCourse = async (courseId: string, module: any) => {
   return response.data;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MODULES_API = `${HTTP_SERVER}/api/modules`;
-export const deleteModule = async (moduleId: string) => {
- const response = await axiosWithCredentials.delete(`${MODULES_API}/${moduleId}`);
+export const deleteModule = async (courseId: string, moduleId: string) => {
+ const response = await axiosWithCredentials.delete(
+  `${COURSES_API}/${courseId}/modules/${moduleId}`);
  return response.data;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const updateModule = async (module: any) => {
-  const { data } = await axiosWithCredentials.put(`${MODULES_API}/${module._id}`, module);
+export const updateModule = async (courseId: string, module: any) => {
+  const { data } = await axiosWithCredentials.put(
+    `${COURSES_API}/${courseId}/modules/${module._id}`, module);
   return data;
 };
 
@@ -93,11 +102,13 @@ export const findEnrollmentsForUser = async (userId: string) => {
 };
 
 export const enrollUserInCourse = async (userId: string, courseId: string) => {
-  const { data } = await axiosWithCredentials.post(`${USERS_API}/${userId}/courses/${courseId}`);
+  const { data } = await axiosWithCredentials.post(
+    `${USERS_API}/${userId}/courses/${courseId}`);
   return data;
 };
 
 export const unenrollUserFromCourse = async (userId: string, courseId: string) => {
-  const { data } = await axiosWithCredentials.delete(`${USERS_API}/${userId}/courses/${courseId}`);
+  const { data } = await axiosWithCredentials.delete(
+    `${USERS_API}/${userId}/courses/${courseId}`);
   return data;
 };

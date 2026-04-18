@@ -10,8 +10,8 @@ export default function CoursesPage() {
 
  if (!currentUser) redirect("/account/signin");
 
- const isEnrolled = enrollments.some((enrollment) => enrollment.user === currentUser._id && enrollment.course === cid);
-
+ const isEnrolled = enrollments.some((courseEnrollment) => courseEnrollment._id === cid);
+ 
  if (!isEnrolled) {
     redirect("/dashboard") 
 } else {
