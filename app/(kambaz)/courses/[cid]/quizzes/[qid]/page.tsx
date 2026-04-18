@@ -106,9 +106,7 @@ export default function QuizDetails() {
 
         <hr/>
 
-        <span>{quiz.description}</span>
-
-        <hr/>
+        {quiz.description !== "" && <><span>{quiz.description}</span><hr /></>}
 
         {isStudent && (
             <div className="d-flex justify-content-center mt-3">

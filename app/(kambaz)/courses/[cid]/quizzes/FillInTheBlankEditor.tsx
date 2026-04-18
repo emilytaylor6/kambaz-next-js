@@ -30,7 +30,7 @@ export default function FillInTheBlankEditor({ question, setQuestion } :
     <div className="wd-fill-in-the-blank-question-editor">
         <Row>
             <span>Enter your question text, then define all possible correct answers for the blank. Students will 
-                see the questionfollowed by a small text box to type their answer.
+                see the question followed by a small text box to type their answer.
             </span>
         </Row> <br/>
         

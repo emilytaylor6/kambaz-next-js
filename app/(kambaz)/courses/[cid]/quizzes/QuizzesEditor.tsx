@@ -5,12 +5,13 @@ import { useParams, useRouter } from "next/navigation";
 import * as client from "../../client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Button, Col, Form, Nav, NavItem, NavLink, Row } from "react-bootstrap";
+import { Button, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Form, Nav, NavItem, NavLink, Row } from "react-bootstrap";
 import DetailsEditor from "./DetailsEditor";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdDoNotDisturbAlt } from "react-icons/md";
 import { IoEllipsisVertical } from "react-icons/io5";
 import QuestionsEditor from "./QuestionsEditor";
+import QuizDeleteDialogue from "./QuizDeleteDialogue";
 
 export default function QuizzesEditor({ givenQuiz, isNew } : { givenQuiz: any, isNew: boolean })  {
     const { cid } = useParams(); 
@@ -19,6 +20,7 @@ export default function QuizzesEditor({ givenQuiz, isNew } : { givenQuiz: any, i
     const [questions, setQuestions] = useState<any>([]);
     const [originalQuestions, setOriginalQuestions] = useState<any>([]);
     const [activeEditor, setActiveEditor] = useState<"details" | "questions">("details");
+    const [showDelete, setShowDelete]= useState<boolean>(false);
 
     useEffect(() => {
         onStartQuestions();
@@ -118,10 +120,15 @@ return (
                     (<><MdDoNotDisturbAlt
                         className="text-secondary fs-4" /><span>Not Published</span></>)
                 }
-                <IoEllipsisVertical 
-                    className="fs-4" 
-                    // handle on click options here (publish)
-                />
+                <Dropdown align="end">
+                    <DropdownToggle as="span" bsPrefix="no-caret"> <IoEllipsisVertical className="fs-4"/> </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={() => setShowDelete(true)}>Delete</DropdownItem>
+                        <DropdownItem onClick={() => setQuiz({ ...quiz, isPublished: !quiz.isPublished })}>
+                            {quiz.isPublished ? "Unpublish" : "Publish"}
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
             </Col>
         </Row>
         <br/>
@@ -160,5 +167,11 @@ return (
                 }}>Cancel
             </Button>
         </Form>
+
+        <QuizDeleteDialogue
+            show={showDelete}
+            handleClose={() => router.push(`/courses/${cid}/quizzes`)}
+            quiz={quiz}
+        />
     </div>
 ); }
