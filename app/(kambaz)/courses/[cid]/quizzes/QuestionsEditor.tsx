@@ -13,7 +13,7 @@ export default function QuestionsEditor({ questions, setQuestions } : { question
             type: "MULTIPLE_CHOICE",
             points: 0,
             question: "",
-            multipleChoiceAnswers: [{ choice: "Choice 1", isCorrect: "true" }],
+            multipleChoiceAnswers: [{ choice: "Choice 1", isCorrect: true }],
             trueFalseAnswer: undefined, 
             fillInAnswers: undefined 
         }]);
@@ -22,7 +22,7 @@ export default function QuestionsEditor({ questions, setQuestions } : { question
     return (
     <div>
         {questions.map((question: any, index: number) => (
-            <QuestionBox key={question._id} givenQuestion={question} index={index} 
+            <QuestionBox key={question._id ?? index} givenQuestion={question} index={index} 
                 questions={questions} setQuestions={setQuestions} isNew={!question._id} />
         ))}
         <div className="d-flex justify-content-center mt-3">

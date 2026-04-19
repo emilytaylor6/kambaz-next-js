@@ -71,7 +71,7 @@ export default function QuestionBox({ givenQuestion, index, questions, setQuesti
                                 <option value="FILL_IN_THE_BLANK">Fill in the Blank</option>
                             </FormSelect>
                         </Col></> : 
-                        <Col xs="auto"><h3 className="mb-0">Question {index + 1}</h3></Col>
+                        <Col xs="auto"><h4 className="mb-0">Question {index + 1}</h4></Col>
                     }
                     <Col className="d-flex align-items-center justify-content-end gap-2">
                         {editing ?

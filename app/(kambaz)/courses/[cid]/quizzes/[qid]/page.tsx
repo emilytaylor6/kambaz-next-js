@@ -35,7 +35,7 @@ export default function QuizDetails() {
                 <><div className="d-flex justify-content-end gap-2 mb-3">
                     <Button
                         variant="secondary"
-                        onClick={() => router.push(`/courses/${cid}/quizzes/${qid}`)}>
+                        onClick={() => router.push(`/courses/${cid}/quizzes/${qid}/preview`)}>
                         Preview
                     </Button>
                     <Button

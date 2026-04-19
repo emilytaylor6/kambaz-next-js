@@ -4,8 +4,13 @@
 import { useState } from "react"
 import { FormCheck } from "react-bootstrap";
 
-export default function MultipleChoiceQuestion({ question, questionIndex }: { question: any, questionIndex: number }) {
-    const [selected, setSelected] = useState<number | null>(null);
+export default function MultipleChoiceQuestion({ question, questionIndex, userSelected, setUserSelected } : 
+    { question: any, questionIndex: number, userSelected?: any, setUserSelected?: (answer: any) => void }) {
+
+    const [editingSelected, setEditingSelected] = useState<number | null>(null);
+    const selected = userSelected ?? editingSelected;
+    const setSelected = setUserSelected ?? setEditingSelected;
+
     const choices = question.multipleChoiceAnswers || [];
 
     return (
