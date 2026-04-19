@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as client from "../../client";
 import { useEffect } from "react";
 import { setAssignments } from "./reducer";
+import { produceDateAndTime } from "../quizzes/utils";
 
 export default function Assignments() {
   const { cid } = useParams(); 
@@ -29,26 +30,6 @@ export default function Assignments() {
     fetchAssignments();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  /**
-   * Used to produce a date and time in the format: MONTH DAY, YEAR at TIME with TIME being in the 
-   * 12 hour format with AM and PM, YEAR only applying if the given year is the same as the current
-   * year, and MONTH being a three character abbreviation
-   * @param date the given date
-   * @returns a string containing MONTH DAY, YEAR at TIME for the given date
-   */
-  const produceDateAndTime = (date: Date) => {
-    const currentDate = new Date();
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-    let dateString = "";
-    dateString = months[date.getMonth()] + " " + date.getDate().toString();
-    if (currentDate.getFullYear() !== date.getFullYear()) {
-      dateString = dateString +  ", " + date.getFullYear().toString();
-    }
-    dateString = dateString + " at " + time;
-    return dateString;
-  }
 
   return (
     <div>

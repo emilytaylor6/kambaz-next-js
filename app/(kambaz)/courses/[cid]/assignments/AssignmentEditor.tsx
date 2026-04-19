@@ -8,6 +8,7 @@ import { RootState } from "../../../store";
 import { useState } from "react";
 import { setAssignments } from "./reducer";
 import * as client from "../../client";
+import { formatDate } from "../quizzes/utils";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -64,20 +65,6 @@ export default function AssignmentEditor() {
         onCreateAssignmentForCourse();
     }
     router.push(`/courses/${cid}/assignments/`);
-  }
-  
-  /**
-   * Formats the ISO string given in the JSON file into a format compatible with datetime-local
-   * and accounts for the user's timezone
-   * @param isoDate the isodate as a string from the JSON file
-   * @returns a formatted string as YYYY-MM-DDTHH:mm
-   */
-  const formatDate = (isoDate: string) => {
-    if (isoDate === "") return "";
-    const date = new Date(isoDate);
-    const timezoneOffset = date.getTimezoneOffset() * 60000; // 60000 ms/min
-    const localDate = new Date(date.getTime() - timezoneOffset);
-    return localDate.toISOString().slice(0, 16);
   }
 
   return (

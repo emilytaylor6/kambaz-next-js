@@ -57,3 +57,26 @@ body * {
         justify-content: end;
     }
 }
+
+/* ------------------- QUIZZES PROJECT ------------------- */
+.wd-quiz.FACULTY {
+    border-left: 3px solid green !important;
+}
+
+.wd-quiz-left-icon.FACULTY {
+    color: green;
+}
+
+.quiz-link {
+    text-decoration: none;
+    color: black;
+}
+
+.quiz-link:hover {
+    text-decoration: underline;
+}
+
+.wd-quiz:hover { 
+    cursor: pointer;
+    background-color: rgb(217, 239, 253)
+}
