@@ -142,18 +142,27 @@ export default function PreviewQuiz() {
                         <div className="wd-preview-quiz-one-question">
                             {generateQuestionBox(questions[currentQuestionIndex], currentQuestionIndex)}
                             <hr />
-                            <div className="d-flex justify-content-end mt-2">
-                                {!isLast ? (
-                                    <Button variant="danger" onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}>
-                                        Next
-                                    </Button>
-                                ) : (
-                                    !submitted && (
-                                        <Button variant="danger" onClick={handleSubmit}>
-                                            Submit Quiz
+                            <div className="d-flex justify-content-between mt-2">
+                                <div>
+                                    {currentQuestionIndex > 0 && (
+                                        <Button variant="secondary" onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}>
+                                            Previous
                                         </Button>
-                                    )
-                                )}
+                                    )}
+                                </div>
+                                <div>
+                                    {!isLast ? (
+                                        <Button variant="danger" onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}>
+                                            Next
+                                        </Button>
+                                    ) : (
+                                        !submitted && (
+                                            <Button variant="danger" onClick={handleSubmit}>
+                                                Submit Quiz
+                                            </Button>
+                                        )
+                                    )}
+                                </div>
                             </div>
                         </div>
                     ) : (
