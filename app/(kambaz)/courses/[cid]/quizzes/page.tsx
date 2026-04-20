@@ -26,11 +26,18 @@ export default function Quizzes() {
         const quizzes = await client.findQuizzesForCourse(cid as string);
         const filteredQuizzes = [ ...quizzes ].filter((quiz) => quiz.title.toLowerCase().includes(search.toLowerCase()));
 
+        const sortedQuizzes = filteredQuizzes.sort((a, b) => {
+            if (!a.availableDate && !b.availableDate) return 0;
+            if (!a.availableDate) return -1;
+            if (!b.availableDate) return 1;
+            return new Date(a.availableDate).getTime() - new Date(b.availableDate).getTime();
+        });
+
         if (!canEdit) {
-            const publishedQuizzes = [ ...filteredQuizzes ].filter((quiz) => quiz.isPublished);
+            const publishedQuizzes = [ ...sortedQuizzes ].filter((quiz) => quiz.isPublished);
             setQuizzes(publishedQuizzes);
         } else {
-            setQuizzes(filteredQuizzes);
+            setQuizzes(sortedQuizzes);
         }
     }
 
