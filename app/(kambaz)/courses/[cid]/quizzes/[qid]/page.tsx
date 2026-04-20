@@ -7,28 +7,42 @@ import { Button, Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import { produceDateAndTime } from "../utils";
+import QuestionBox from "../QuestionBox";
 
 export default function QuizDetails() {
     const { cid, qid } = useParams();
     const router = useRouter();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const [quiz, setQuiz] = useState<any>(null);
+    const [questions, setQuestions] = useState<any[]>([]);
+    const [attempts, setAttempts] = useState<any[]>([]);
 
     const canEdit = currentUser.role === "FACULTY";
     const isStudent = currentUser.role === "STUDENT";
 
-    const findExistingQuiz = async () => {
+    const findExistingQuizQuestionsAndAttempts = async () => {
         const foundQuiz = await client.findQuizById(qid as string);
+        const foundQuestions = await client.findQuestionsForQuiz(qid as string);
         setQuiz(foundQuiz);
+        setQuestions(foundQuestions);
+        if (isStudent) {
+            const foundAttempts = await client.findAttemptsForUser(qid as string, currentUser._id);
+            setAttempts(foundAttempts);
+        }
     }
 
     useEffect(() => {
-        findExistingQuiz();
+        findExistingQuizQuestionsAndAttempts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (!quiz) return <div>Loading...</div>
 
+    const latestAttempt = attempts.length > 0 ?
+        [...attempts].sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())[0] : null;
+    const canTakeQuiz = attempts.length === 0 ||
+        (quiz.hasMultipleAttempts && attempts.length < quiz.howManyAttempts);
+    
     return (
         <div className="wd-quiz-details">
             {canEdit && (
@@ -109,13 +123,53 @@ export default function QuizDetails() {
         {quiz.description !== "" && <><span>{quiz.description}</span><hr /></>}
 
         {isStudent && (
-            <div className="d-flex justify-content-center mt-3">
-                <Button 
-                    variant="danger"
-                    onClick={() => router.push(`/courses/${cid}/quizzes/${qid}`)}
-                >
-                    Take Quiz
-                </Button>
+            <div className="mt-3">
+                {canTakeQuiz ? (
+                    <div className="d-flex justify-content-center mb-2">
+                        <Button 
+                            variant="danger"
+                            onClick={() => router.push(`/courses/${cid}/quizzes/${qid}/take`)}
+                        >
+                            {attempts.length === 0 ? "Take Quiz" : "Retake Quiz"}
+                        </Button>
+                    </div>) : (
+                    <div className="d-flex justify-content-center mb-2">
+                        <span className="alert alert-secondary">
+                            {quiz.howManyAttempts} attempt{quiz.howManyAttempts === 1 ? " has" : "s have"} been used.
+                        </span>
+                    </div>
+                )}
+
+                {latestAttempt && (
+                    <div className="wd-quiz-attempt-details">
+                        <div className="alert alert-danger"> 
+                            {/* &nbsp; is a space */}
+                            <b>Latest Score:</b> {latestAttempt.score} / {quiz.points} &nbsp;|&nbsp;
+                            <b>Submitted:</b> {produceDateAndTime(new Date(latestAttempt.submittedAt))}
+                            {quiz.hasMultipleAttempts && (
+                                <> &nbsp;|&nbsp; <b>Attempts used:</b> {attempts.length} / {quiz.howManyAttempts}</>
+                            )}
+                        </div>
+
+                        <h5 className="mt-3 mb-3"><b>Quiz Attempt</b></h5>
+                        {questions.map((question, index) => {
+                            const attemptAnswer = latestAttempt.answers.find(
+                                (answer: any) => answer.question === question._id
+                            ); 
+                            return (
+                                <QuestionBox
+                                    key={question._id}
+                                    question={question}
+                                    questionIndex={index}
+                                    userAnswer={attemptAnswer?.questionAnswer}
+                                    showResult={quiz.showCorrectAnswers}
+                                    isCorrect={quiz.showCorrectAnswers ? attemptAnswer?.isCorrect : undefined}
+                                />
+                            );
+                        })}
+                    </div>
+                )}
+                
             </div>
         )}
             

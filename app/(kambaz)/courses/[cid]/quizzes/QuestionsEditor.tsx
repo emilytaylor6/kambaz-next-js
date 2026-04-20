@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "react-bootstrap";
-import QuestionBox from "./QuestionBox";
+import QuestionBoxEditor from "./QuestionBoxEditor";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -22,7 +22,7 @@ export default function QuestionsEditor({ questions, setQuestions } : { question
     return (
     <div>
         {questions.map((question: any, index: number) => (
-            <QuestionBox key={question._id ?? index} givenQuestion={question} index={index} 
+            <QuestionBoxEditor key={question._id ?? index} givenQuestion={question} index={index} 
                 questions={questions} setQuestions={setQuestions} isNew={!question._id} />
         ))}
         <div className="d-flex justify-content-center mt-3">
