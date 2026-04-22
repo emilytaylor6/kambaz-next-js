@@ -8,7 +8,7 @@ export default function MultipleChoiceQuestion({ question, questionIndex, userSe
     { question: any, questionIndex: number, userSelected?: any, setUserSelected?: (answer: any) => void, showResult?: boolean, showCorrectAnswers?: boolean }) {
 
     const [editingSelected, setEditingSelected] = useState<number | null>(null);
-    const selected = userSelected ?? editingSelected;
+    const selected = userSelected !== undefined && userSelected !== null ? Number(userSelected) : editingSelected;
     const setSelected = setUserSelected ?? setEditingSelected;
 
     const choices = question.multipleChoiceAnswers || [];
