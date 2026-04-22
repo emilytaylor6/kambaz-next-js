@@ -56,24 +56,16 @@ export default function QuizDetails() {
             {canEdit && (
                 <><div className="d-flex justify-content-end gap-2 mb-3">
                     {quiz.isPublished ? 
-                        <><FaCheckCircle 
-                            className="text-success fs-4" 
-                            onClick={togglePublishQuiz}
-                        />
                         <Button
                             variant="secondary"
                             onClick={togglePublishQuiz}>
                             Unpublish
-                        </Button> </>: 
-                        <><MdDoNotDisturbAlt 
-                            className="text-secondary fs-4" 
-                            onClick={togglePublishQuiz}
-                        />
+                        </Button>:
                         <Button
                             variant="secondary"
                             onClick={togglePublishQuiz}>
                             Publish
-                        </Button> </>
+                        </Button>
                     }
                     <Button
                         variant="secondary"
