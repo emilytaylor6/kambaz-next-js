@@ -59,11 +59,21 @@ export default function QuizDetails() {
                         <><FaCheckCircle 
                             className="text-success fs-4" 
                             onClick={togglePublishQuiz}
-                        /> Published </>: 
+                        />
+                        <Button
+                            variant="secondary"
+                            onClick={togglePublishQuiz}>
+                            Unpublish
+                        </Button> </>: 
                         <><MdDoNotDisturbAlt 
                             className="text-secondary fs-4" 
                             onClick={togglePublishQuiz}
-                        /> Not Published</>
+                        />
+                        <Button
+                            variant="secondary"
+                            onClick={togglePublishQuiz}>
+                            Publish
+                        </Button> </>
                     }
                     <Button
                         variant="secondary"
