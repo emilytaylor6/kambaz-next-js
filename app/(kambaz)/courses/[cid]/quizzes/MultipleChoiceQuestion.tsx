@@ -4,8 +4,8 @@
 import { useState } from "react"
 import { FormCheck } from "react-bootstrap";
 
-export default function MultipleChoiceQuestion({ question, questionIndex, userSelected, setUserSelected } : 
-    { question: any, questionIndex: number, userSelected?: any, setUserSelected?: (answer: any) => void }) {
+export default function MultipleChoiceQuestion({ question, questionIndex, userSelected, setUserSelected, showResult, showCorrectAnswers } : 
+    { question: any, questionIndex: number, userSelected?: any, setUserSelected?: (answer: any) => void, showResult?: boolean, showCorrectAnswers?: boolean }) {
 
     const [editingSelected, setEditingSelected] = useState<number | null>(null);
     const selected = userSelected ?? editingSelected;
@@ -24,9 +24,9 @@ export default function MultipleChoiceQuestion({ question, questionIndex, userSe
                         type="radio"
                         name={`multiple-choice-answer-${questionIndex}`}
                         checked={selected === index}
-                        onChange={() => setSelected(index)}
+                        onChange={() => !showResult && setSelected(index)}
                     />
-                    <span>{choice.choice}</span>
+                    <span className={showCorrectAnswers && choice.isCorrect ? "text-success fw-bold" : ""}>{choice.choice}</span>
                 </div>
             ))}
         </div>

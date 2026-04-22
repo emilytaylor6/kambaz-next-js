@@ -8,8 +8,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import { produceDateAndTime } from "../utils";
 import QuestionBox from "../QuestionBox";
-import { FaCheckCircle } from "react-icons/fa";
-import { MdDoNotDisturbAlt } from "react-icons/md";
 
 export default function QuizDetails() {
     const { cid, qid } = useParams();
@@ -182,7 +180,8 @@ export default function QuizDetails() {
                                     question={question}
                                     questionIndex={index}
                                     userAnswer={attemptAnswer?.questionAnswer}
-                                    showResult={quiz.showCorrectAnswers}
+                                    showResult={true}
+                                    showCorrectAnswers={quiz.showCorrectAnswers}
                                     isCorrect={quiz.showCorrectAnswers ? attemptAnswer?.isCorrect : undefined}
                                 />
                             );

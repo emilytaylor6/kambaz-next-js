@@ -4,8 +4,8 @@
 import { useState } from "react"
 import { FormCheck } from "react-bootstrap";
 
-export default function TrueFalseQuestion({ question, questionIndex, userSelected, setUserSelected } : 
-    { question: any, questionIndex: number, userSelected?: any, setUserSelected?: (answer: any) => void }) {
+export default function TrueFalseQuestion({ question, questionIndex, userSelected, setUserSelected, showResult, showCorrectAnswers } : 
+    { question: any, questionIndex: number, userSelected?: any, setUserSelected?: (answer: any) => void, showResult?: boolean, showCorrectAnswers?: boolean }) {
 
     const [editingSelected, setEditingSelected] = useState<string | null>(null);
     const selected = userSelected ?? editingSelected;
@@ -21,18 +21,18 @@ export default function TrueFalseQuestion({ question, questionIndex, userSelecte
                     type="radio"
                     name={`true-false-answer-${questionIndex}`}
                     checked={selected === "true"}
-                    onChange={() => setSelected("true")}
+                    onChange={() => !showResult && setSelected("true")}
                 />
-                <span>True</span>
+                <span className={showCorrectAnswers && question.trueFalseAnswer === "true" ? "text-success fw-bold" : ""}>True</span>
             </div>
             <div className="d-flex align-items-center gap-2 mb-2">
                 <FormCheck
                     type="radio"
                     name={`true-false-answer-${questionIndex}`}
                     checked={selected === "false"}
-                    onChange={() => setSelected("false")}
+                    onChange={() => !showResult && setSelected("false")}
                 />
-                <span>False</span>
+                <span className={showCorrectAnswers && question.trueFalseAnswer === "false" ? "text-success fw-bold" : ""}>False</span>
             </div>
         </div>
     );

@@ -78,7 +78,8 @@ export default function QuizAttempt({ quiz, questions, isPreview = false, handle
                     questionIndex={index}
                     userAnswer={userAnswers[question._id]}
                     onAnswer={(answer) => setUserAnswer(question._id, answer)}
-                    showResult={submitted && quiz.showCorrectAnswers}
+                    showResult={submitted}
+                    showCorrectAnswers={submitted && quiz.showCorrectAnswers}
                     isCorrect={submitted ? checkCorrect(question) : undefined}
                 />); 
         } else {
@@ -88,7 +89,8 @@ export default function QuizAttempt({ quiz, questions, isPreview = false, handle
                 questionIndex={index}
                 userAnswer={userAnswers[question._id]}
                 onAnswer={(answer) => setUserAnswer(question._id, answer)}
-                showResult={submitted && quiz.showCorrectAnswers}
+                showResult={submitted}
+                showCorrectAnswers={submitted && quiz.showCorrectAnswers}
                 isCorrect={submitted ? checkCorrect(question) : undefined}
             />);
         };

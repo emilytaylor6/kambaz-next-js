@@ -4,8 +4,8 @@
 import { useState } from "react"
 import { FormControl } from "react-bootstrap";
 
-export default function FillInTheBlankQuestion({ question, userAnswer, onUserAnswer } : 
-    { question: any, userAnswer?: string, onUserAnswer?: (answer: string) => void }) {
+export default function FillInTheBlankQuestion({ question, userAnswer, onUserAnswer, showCorrectAnswers } : 
+    { question: any, userAnswer?: string, onUserAnswer?: (answer: string) => void, showCorrectAnswers?: boolean }) {
 
     const [editingAnswer, setEditingAnswer] = useState<string>("");
     const answer = userAnswer ?? editingAnswer;
@@ -21,6 +21,11 @@ export default function FillInTheBlankQuestion({ question, userAnswer, onUserAns
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
             />
+            {showCorrectAnswers && (
+                <span className="text-success fw-bold small">
+                    Correct answers: {question.fillInAnswers?.join(", ")}
+                </span>
+            )}
         </div>
     );
 }
