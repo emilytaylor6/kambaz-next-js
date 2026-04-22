@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import { produceDateAndTime } from "../utils";
 import QuestionBox from "../QuestionBox";
+import { FaCheckCircle } from "react-icons/fa";
+import { MdDoNotDisturbAlt } from "react-icons/md";
 
 export default function QuizDetails() {
     const { cid, qid } = useParams();
@@ -42,11 +44,27 @@ export default function QuizDetails() {
         [...attempts].sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())[0] : null;
     const canTakeQuiz = attempts.length === 0 ||
         (quiz.hasMultipleAttempts && attempts.length < quiz.howManyAttempts);
-    
+
+    const togglePublishQuiz = async () => {
+        const updatedQuiz = { ...quiz, isPublished: !quiz.isPublished };
+        await client.updateQuiz(updatedQuiz);
+        setQuiz(updatedQuiz);
+    }
+
     return (
         <div className="wd-quiz-details">
             {canEdit && (
                 <><div className="d-flex justify-content-end gap-2 mb-3">
+                    {quiz.isPublished ? 
+                        <><FaCheckCircle 
+                            className="text-success fs-4" 
+                            onClick={togglePublishQuiz}
+                        /> Published </>: 
+                        <><MdDoNotDisturbAlt 
+                            className="text-secondary fs-4" 
+                            onClick={togglePublishQuiz}
+                        /> Not Published</>
+                    }
                     <Button
                         variant="secondary"
                         onClick={() => router.push(`/courses/${cid}/quizzes/${qid}/preview`)}>
