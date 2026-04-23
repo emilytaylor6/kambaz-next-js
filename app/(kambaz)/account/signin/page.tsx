@@ -31,7 +31,8 @@ export default function Signin() {
              className="mb-2" placeholder="password" type="password" id="wd-password" />
       <Button onClick={signin} id="wd-signin-btn" className="w-100" > Sign in </Button>
       <Link id="wd-signup-link" href="/account/signup"> Sign up </Link>
-      <br/>
+      <br/><br/><br/>
+      <hr/>
       <ul>
         <li>
           CS 4550 33211 Final Project: Emily Taylor
