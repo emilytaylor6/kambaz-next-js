@@ -31,5 +31,19 @@ export default function Signin() {
              className="mb-2" placeholder="password" type="password" id="wd-password" />
       <Button onClick={signin} id="wd-signin-btn" className="w-100" > Sign in </Button>
       <Link id="wd-signup-link" href="/account/signup"> Sign up </Link>
+      <br/>
+      <ul>
+        <li>
+          CS 4550 33211 Final Project: Emily Taylor
+        </li>
+        <li>
+            <Link href="https://github.com/emilytaylor6/kambaz-next-js/" id="wd-github">
+            Frontend GitHub Repo </Link>
+        </li>
+        <li>
+            <Link href="https://github.com/emilytaylor6/kambaz-node-server-app/" id="wd-github">
+            Server GitHub Repo </Link>
+        </li>
+      </ul>
     </div>
 );}
